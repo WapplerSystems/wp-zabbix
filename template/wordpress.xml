@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>4.4</version>
+    <date>2019-12-02T11:41:09Z</date>
+    <groups>
+        <group>
+            <name>Templates/Applications</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>Template WordPress</template>
+            <name>Template WordPress</name>
+            <groups>
+                <group>
+                    <name>Templates/Applications</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>WordPress</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>WordPress default comment status</name>
+                    <type>HTTP_AGENT</type>
+                    <key>wp_defaultcommentstatus</key>
+                    <delay>1d</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>WordPress</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[&quot;wp-core&quot;].fields.default_comment_status.debug</params>
+                        </step>
+                    </preprocessing>
+                    <url>https://{HOST.CONN}/wp-json/wpzabbix/v1/sitehealth</url>
+                    <posts>wpzabbix-key={$WORDPRESS_CLIENT_KEY}</posts>
+                    <follow_redirects>NO</follow_redirects>
+                    <request_method>POST</request_method>
+                    <verify_peer>YES</verify_peer>
+                </item>
+                <item>
+                    <name>WordPress HTTPS status</name>
+                    <type>HTTP_AGENT</type>
+                    <key>wp_httpsstatus</key>
+                    <delay>1d</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>WordPress</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[&quot;wp-core&quot;].fields.https_status.debug</params>
+                        </step>
+                    </preprocessing>
+                    <url>https://{HOST.CONN}/wp-json/wpzabbix/v1/sitehealth</url>
+                    <posts>wpzabbix-key={$WORDPRESS_CLIENT_KEY}</posts>
+                    <request_method>POST</request_method>
+                    <verify_peer>YES</verify_peer>
+                </item>
+                <item>
+                    <name>WordPress version</name>
+                    <type>HTTP_AGENT</type>
+                    <key>wp_version</key>
+                    <delay>1d</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>WordPress</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[&quot;wp-core&quot;].fields.version.debug</params>
+                        </step>
+                    </preprocessing>
+                    <url>https://{HOST.CONN}/wp-json/wpzabbix/v1/sitehealth</url>
+                    <posts>wpzabbix-key={$WORDPRESS_CLIENT_KEY}</posts>
+                    <request_method>POST</request_method>
+                </item>
+            </items>
+        </template>
+    </templates>
+</zabbix_export>
