@@ -4,7 +4,7 @@
  * Plugin URI:        https://wappler.systems/wordpress/plugins/wp-zabbix/
  * Description:
  * Version:           0.0.1
- * Requires at least: 5.2
+ * Requires at least: 5.6
  * Requires PHP:      7.2
  * Author:            Sven Wappler
  * Author URI:        https://wappler.systems/
