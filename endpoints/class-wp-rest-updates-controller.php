@@ -111,6 +111,12 @@ class WP_ZABBIX_Updates_Controller extends WP_REST_Controller {
             'inactive' => $inactive,
         ];
 
+        $core_updates = 0;
+        foreach (get_core_updates() as $version) {
+            if ($version->response === 'upgrade') $core_updates++;
+        }
+        $response['core'] = $core_updates;
+
 		return $response;
 	}
 
