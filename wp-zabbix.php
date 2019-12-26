@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       WordPress Zabbix Monitoring Client
  * Plugin URI:        https://wappler.systems/wordpress/plugins/wp-zabbix/
- * Description:
+ * Description:       This is a REST API client for the Zabbix Monitoring system.
  * Version:           0.0.1
  * Requires at least: 5.6
  * Requires PHP:      7.2
