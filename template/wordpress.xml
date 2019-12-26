@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.4</version>
-    <date>2019-12-26T00:27:51Z</date>
+    <date>2019-12-26T19:17:47Z</date>
     <groups>
         <group>
             <name>Templates/Applications</name>
@@ -22,6 +22,27 @@
                 </application>
             </applications>
             <items>
+                <item>
+                    <name>WordPress core updates available</name>
+                    <type>HTTP_AGENT</type>
+                    <key>wp_core_updates_available</key>
+                    <delay>1d</delay>
+                    <applications>
+                        <application>
+                            <name>WordPress</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.core</params>
+                        </step>
+                    </preprocessing>
+                    <url>https://{HOST.CONN}/wp-json/wpzabbix/v1/updates</url>
+                    <posts>wpzabbix-key={$WORDPRESS_CLIENT_KEY}</posts>
+                    <follow_redirects>NO</follow_redirects>
+                    <request_method>POST</request_method>
+                </item>
                 <item>
                     <name>WordPress default comment status</name>
                     <type>HTTP_AGENT</type>
