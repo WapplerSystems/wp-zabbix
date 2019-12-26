@@ -1,6 +1,6 @@
 <?php
 /**
- * REST API: WP_ZABBIX_SiteHealth_Controller class
+ * REST API: WP_ZABBIX_Updates_Controller class
  *
  * @package wp-zabbix
  */
@@ -9,7 +9,7 @@
  *
  *
  */
-class WP_ZABBIX_SiteHealth_Controller extends WP_REST_Controller {
+class WP_ZABBIX_Updates_Controller extends WP_REST_Controller {
 
 	/**
 	 * Constructor.
@@ -18,7 +18,7 @@ class WP_ZABBIX_SiteHealth_Controller extends WP_REST_Controller {
 	 */
 	public function __construct() {
 		$this->namespace = 'wpzabbix/v1';
-		$this->rest_base = 'sitehealth';
+		$this->rest_base = 'updates';
 	}
 
 	/**
@@ -67,21 +67,52 @@ class WP_ZABBIX_SiteHealth_Controller extends WP_REST_Controller {
 	public function get_items( $request ) {
 		$response = [];
 
-        if ( !class_exists( 'WP_Debug_Data' ) ) {
-            require_once ABSPATH . 'wp-admin/includes/class-wp-debug-data.php';
+        require_once( ABSPATH . 'wp-admin/includes/update.php' );
+        require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+        $plugins = get_plugin_updates();
+
+        $active = 0;
+        $inactive = 0;
+
+        foreach ($plugins as $key => $plugin) {
+            if (is_plugin_active($key)) {
+                $active++;
+            } else {
+                $inactive++;
+            }
         }
-        require_once ABSPATH . 'wp-admin/includes/update.php';
 
-        WP_Debug_Data::check_for_updates();
+        $response['plugins'] = [
+            'total' => count($plugins),
+            'active' => $active,
+            'inactive' => $inactive,
+        ];
 
-        try {
-            $response = WP_Debug_Data::debug_data();
-        } catch (\ImagickException $ex) {
 
+        require_once( ABSPATH . 'wp-admin/includes/theme.php' );
+        $themes = get_theme_updates();
+
+        $currentTheme = wp_get_theme();
+        $active = 0;
+        $inactive = 0;
+
+        /** @var WP_Theme $theme */
+        foreach ($themes as $theme) {
+            if ($theme->get('Name') === $currentTheme->get('Name')) {
+                $active++;
+            } else {
+                $inactive++;
+            }
         }
+
+        $response['themes'] = [
+            'total' => count($themes),
+            'active' => $active,
+            'inactive' => $inactive,
+        ];
+
 		return $response;
 	}
-
 
 
 }

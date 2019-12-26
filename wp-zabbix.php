@@ -21,6 +21,7 @@ define( 'WPZABBIX_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
 require_once WPZABBIX_PLUGIN_DIR . 'class.wpzabbix.php';
 require_once WPZABBIX_PLUGIN_DIR . 'endpoints' . DIRECTORY_SEPARATOR . 'class-wp-rest-site-health-controller.php';
+require_once WPZABBIX_PLUGIN_DIR . 'endpoints' . DIRECTORY_SEPARATOR . 'class-wp-rest-updates-controller.php';
 
 
 function run_zabbix_client()

@@ -1,6 +1,10 @@
 # wp-zabbix
 Zabbix client for WordPress.
 
+## What does it do?
+
+
+
 ## Installation
 
   1. Install the wp-zabbix plugin.

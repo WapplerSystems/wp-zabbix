@@ -1,6 +1,11 @@
 <?php
 
-class WpZabbix {
+class WpZabbix
+{
+
+
+    const METHODS = 'GET, POST';
+
 
     public function __construct()
     {
@@ -18,7 +23,6 @@ class WpZabbix {
     }
 
 
-
     /**
      * Add the endpoints to the API
      */
@@ -28,11 +32,15 @@ class WpZabbix {
         $health_controller = new WP_ZABBIX_SiteHealth_Controller();
         $health_controller->register_routes();
 
+        $updates_controller = new WP_ZABBIX_Updates_Controller();
+        $updates_controller->register_routes();
+
 
     }
 
 
-    public static function permission_check() {
+    public static function permission_check()
+    {
 
         $secret_key = defined('WPZABBIX_KEY') ? WPZABBIX_KEY : false;
 
@@ -58,7 +66,6 @@ class WpZabbix {
 
         return ($_REQUEST['wpzabbix-key'] === $secret_key);
     }
-
 
 
 }
