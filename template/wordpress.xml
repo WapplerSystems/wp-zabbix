@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.4</version>
-    <date>2019-12-02T11:41:09Z</date>
+    <date>2019-12-26T00:27:51Z</date>
     <groups>
         <group>
             <name>Templates/Applications</name>
@@ -68,6 +68,46 @@
                     <posts>wpzabbix-key={$WORDPRESS_CLIENT_KEY}</posts>
                     <request_method>POST</request_method>
                     <verify_peer>YES</verify_peer>
+                </item>
+                <item>
+                    <name>Outdated active WordPress plugins</name>
+                    <type>HTTP_AGENT</type>
+                    <key>wp_plugins_active_outdated</key>
+                    <delay>1d</delay>
+                    <applications>
+                        <application>
+                            <name>WordPress</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.plugins.active</params>
+                        </step>
+                    </preprocessing>
+                    <url>https://{HOST.CONN}/wp-json/wpzabbix/v1/updates</url>
+                    <posts>wpzabbix-key={$WORDPRESS_CLIENT_KEY}</posts>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>Outdated active WordPress themes</name>
+                    <type>HTTP_AGENT</type>
+                    <key>wp_themes_active_outdated</key>
+                    <delay>1d</delay>
+                    <applications>
+                        <application>
+                            <name>WordPress</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.themes.active</params>
+                        </step>
+                    </preprocessing>
+                    <url>https://{HOST.CONN}/wp-json/wpzabbix/v1/updates</url>
+                    <posts>wpzabbix-key={$WORDPRESS_CLIENT_KEY}</posts>
+                    <request_method>POST</request_method>
                 </item>
                 <item>
                     <name>WordPress version</name>
