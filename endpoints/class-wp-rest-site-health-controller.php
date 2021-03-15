@@ -66,6 +66,10 @@ class WP_ZABBIX_SiteHealth_Controller extends WP_REST_Controller {
      */
 	public function get_items( $request ) {
 		$response = [];
+		
+	if(!function_exists('got_url_rewrite')) {
+		require_once ABSPATH . 'wp-admin/includes/misc.php';
+	}
 
         if ( !class_exists( 'WP_Debug_Data' ) ) {
             require_once ABSPATH . 'wp-admin/includes/class-wp-debug-data.php';
