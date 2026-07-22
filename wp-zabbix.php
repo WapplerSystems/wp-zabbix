@@ -1,33 +1,25 @@
 <?php
 /**
- * Plugin Name:       WordPress Zabbix Monitoring Client
- * Plugin URI:        https://wappler.systems/wordpress/plugins/wp-zabbix/
- * Description:       This is a REST API client for the Zabbix Monitoring system.
- * Version:           0.0.2
- * Requires at least: 4.4
- * Requires PHP:      7.0
- * Author:            Sven Wappler
- * Author URI:        https://wappler.systems/
- * License:           GPL v2 or later
- * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       wp-zabbix
- * Domain Path:       /languages
+ * Plugin Name:  WP-Zabbix Monitoring Client
+ * Plugin URI:   https://github.com/WapplerSystems/wp-zabbix
+ * Description:  REST API client for Zabbix monitoring. Exposes 80+ WordPress health, performance, and security metrics via a single authenticated endpoint.
+ * Version:      1.0.0
+ * Requires at least: 6.4
+ * Requires PHP: 8.1
+ * Author:       Wappler Systems
+ * Author URI:   https://wappler.systems
+ * License:      GPL v2 or later
+ * License URI:  https://www.gnu.org/licenses/gpl-2.0.html
+ * Text Domain:  wp-zabbix
  */
 
+if (!defined('ABSPATH')) exit;
 
-define( 'WPZABBIX_VERSION', '0.0.1' );
-define( 'WPZABBIX_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define('WPZABBIX_VERSION', '1.0.0');
+define('WPZABBIX_DIR', plugin_dir_path(__FILE__));
 
+require_once WPZABBIX_DIR . 'includes/class-plugin.php';
+require_once WPZABBIX_DIR . 'includes/class-collector.php';
+require_once WPZABBIX_DIR . 'includes/class-api.php';
 
-require_once WPZABBIX_PLUGIN_DIR . 'class.wpzabbix.php';
-require_once WPZABBIX_PLUGIN_DIR . 'endpoints' . DIRECTORY_SEPARATOR . 'class-wp-rest-site-health-controller.php';
-require_once WPZABBIX_PLUGIN_DIR . 'endpoints' . DIRECTORY_SEPARATOR . 'class-wp-rest-updates-controller.php';
-
-
-function run_zabbix_client()
-{
-    $plugin = new WpZabbix();
-    $plugin->init();
-
-}
-run_zabbix_client();
+WPZabbix\Plugin::boot();
